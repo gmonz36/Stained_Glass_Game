@@ -1,6 +1,12 @@
 #include <iostream>
 #include "joueur.h"
 
+Joueur::Joueur(string nom, Vitrail* vitrail): nom(nom), vitrail(vitrail) {points=0; position=6;}
+string   Joueur::getNom()      const {return nom;}
+int      Joueur::getPoints()   const {return points;}
+int      Joueur::getPosition() const {return position;}
+Vitrail& Joueur::getVitrail()  const {return *vitrail;}
+
 Joueur&  Joueur::operator--() {
     *this-=1;
     return *this;
@@ -16,11 +22,6 @@ Joueur&  Joueur::operator~() {
     this->position = 6;
     return *this;
 }
-
-string   Joueur::getNom()      const {return nom;}
-int      Joueur::getPoints()   const {return points;}
-int      Joueur::getPosition() const {return position;}
-Vitrail& Joueur::getVitrail()  const {return *vitrail;}
 
 ostream& operator<<(ostream& gauche, const Joueur& droit) {
     gauche << "Joueur " << droit.getNom() << " " << droit.getPoints() << " points" << endl;

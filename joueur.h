@@ -13,6 +13,7 @@ private:
     int      position;
     Vitrail* vitrail;
 public:
+    Joueur(string, Vitrail*);
     string   getNom()      const;
     int      getPoints()   const;
     int      getPosition() const;
