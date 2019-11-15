@@ -4,6 +4,8 @@
 #define VITRAIL_H
 
 #include <vector>
+#include <iostream>
+
 using namespace std;
 
 class Vitrail {
