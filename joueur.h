@@ -8,12 +8,16 @@ using namespace std;
 
 class Joueur {
 private:
-    std::string nom;
-    int         points;
-    int         position;
-    Vitrail*    vitrail;
+    string   nom;
+    int      points;
+    int      position;
+    Vitrail* vitrail;
 public:
-    Joueur&  operator++();
+    string   getNom()      const;
+    int      getPoints()   const;
+    int      getPosition() const;
+    Vitrail& getVitrail()  const;
+    Joueur&  operator--();
     Joueur&  operator-=(const int);
     Joueur&  operator~();
 };
