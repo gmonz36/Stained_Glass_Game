@@ -5,11 +5,17 @@ using namespace std;
 
 
 Vitrail::Vitrail(int nb_cols, int nb_vitres): nb_cols(nb_cols), nb_vitres(nb_vitres) {
+    char couleur[] = {'G', 'J', 'B', 'R', 'O'};
+
     vitrail=new char *[nb_cols];
     for(int i = 0; i<nb_cols; i++){
         vitrail[i] = new char[nb_vitres];
-        auto couleur1 = static_cast<Couleur>(random()%5);
-        auto couleur2 = static_cast<Couleur>(random()%5);
+        int index1 = random() % 5;
+        int index2 = random() % 5;
+
+        char couleur1 = couleur[index1];
+        char couleur2 = couleur[index2];
+
         int h = random() % nb_vitres + 0;
         for(int j = 0; j<=h; j++){
             vitrail[i][j]= couleur1;
@@ -47,14 +53,17 @@ bool Vitrail::estComplete(int colonne) {
 }
 
 ostream& operator<<(ostream& gauche, const Vitrail& droit) {
-    for(int i = 0; i<droit.getNbCols(); i++){
-        for(int j = 0; j<droit.getNbVitres(); j++){
-            gauche << droit.getVitrail()[j][i] << endl;
+    for(int i = 0; i<droit.getNbVitres(); i++){
+        for(int j = 0; j<droit.getNbCols(); j++){
+            gauche << droit.getVitrail()[j][i] << "    ";
         }
+        gauche << endl;
     }
+
     for(int i = droit.getNbCols()-1; i>=0; i--){
-        gauche << i << endl;
+        gauche << i << "    ";
     }
+    gauche << endl;
 
     return gauche;
 

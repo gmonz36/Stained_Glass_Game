@@ -8,9 +8,9 @@ class Vitrail {
     int nb_cols;
     int nb_vitres;
     char **vitrail;
-    enum Couleur{G, J, B, R, O};
 
     public:
+
         Vitrail(int, int);
         ~Vitrail();
         int construireVitrail(std::vector<char>, int);
