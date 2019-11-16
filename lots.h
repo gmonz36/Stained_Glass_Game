@@ -7,11 +7,15 @@ using namespace std;
 
 class Lots {
 private:
-    char         lot[4][5];
+    char**       lot;
     vector<char> surplus;
 public:
-    vector<char> ramasseVitre(char couleur, int numeroLot);
+    Lots();
+    char** getLot() const;
+    vector<char> getSurplus() const;
+    vector<char> ramasseVitre(char, int);
     void reset();
+    ~Lots();
 };
 
 ostream& operator<<(ostream&, const Lots&);
