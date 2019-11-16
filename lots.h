@@ -9,7 +9,6 @@ class Lots {
 private:
     char**       lot;
     vector<char> surplus;
-    int numero;
 public:
     Lots();
     char** getLot() const;
