@@ -49,22 +49,26 @@ int main() {
 
                         vector<char> vitres = lots.ramasseVitre(couleur, numeroLot);
                         courant -= colonne;
-                        int pts = vitrailA.construireVitrail(vitres, colonne);
-                        if (vitrailA.estComplete(colonne)) {
+                        int pts_lost = courant.getVitrail().construireVitrail(vitres, colonne);
+                        int pts = 0;
+                        if (courant.getVitrail().estComplete(colonne)) {
                             pts += 3;
                             for (int i = colonne - 1; i >= 0; i--) {
-                                if (vitrailA.estEnConstruction(i)) {
+                                if (courant.getVitrail().estEnConstruction(i)) {
                                     pts += 1;
                                 }
                             }
                         }
-                        courant.setPoints(pts);
+                        courant.setPoints(pts-pts_lost);
                         cout << courant << endl;
                         cout << lots << endl;
                         turn = false;
                     } else if (courant.getPosition() != 6 and option == 2) {
                         ~courant;
                         turn = false;
+                    }
+                    else{
+                        cin.clear();
                     }
                 }
                 joueur=!joueur;
