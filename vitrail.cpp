@@ -25,7 +25,6 @@ Vitrail::Vitrail(int nb_cols, int nb_vitres): nb_cols(nb_cols), nb_vitres(nb_vit
     }
 
 
-
 }
 
 int Vitrail::getNbCols() const {return nb_cols;}
@@ -78,7 +77,7 @@ bool Vitrail::estComplete(int colonne) {
 }
 
 ostream& operator<<(ostream& gauche, const Vitrail& droit) {
-    for(int i = droit.getNbVitres()-1; i>=0; i--){
+    for(int i = 0; i<droit.getNbVitres(); i++){ //todo change back
         for(int j = droit.getNbCols()-1; j>=0; j--){
             gauche << droit.getVitrail()[j][i] << "    ";
         }

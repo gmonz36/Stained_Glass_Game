@@ -19,7 +19,7 @@ Lots::Lots() {
 
 vector<char> Lots::ramasseVitre(char couleur, int numeroLot) {
     vector<char> vitres;
-    if(numeroLot>0 and numeroLot<=5) {
+    if(numeroLot>=0 and numeroLot<5) {
         if(lot[numeroLot][0]=='.') throw invalid_argument("On ne peut pas sélectionner un lot vide.");
         for(int i=0;i<4;i++) {
             if(couleur == lot[numeroLot][i]) {
@@ -50,9 +50,26 @@ void Lots::reset() {
     }
 }
 
+
+bool Lots::lotVide() {
+    for(int i = 0; i<5; i++){
+        if (lot[i][0]!= '.'){
+            return false;
+        }
+    }
+    return true;
+}
+
+
+bool Lots::surplusVide() {
+    return surplus.empty();
+}
+
+
+
 ostream& operator<<(ostream& gauche, const Lots& droit) {
     for(int i = 0; i<4; i++){
-        for(int j = 0; j<5; j++){
+        for(int j = 4; j>=0; j--){
             gauche << droit.getLot()[j][i] << "    ";
         }
         gauche << endl;
