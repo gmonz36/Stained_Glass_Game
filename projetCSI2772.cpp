@@ -31,7 +31,7 @@ int main() {
                     if (courant.getPosition() != 6) {
                         cout << "(2) - Déplacer le vitrier à la posiiton 6 et terminer votre tour." << endl;
                     }
-                    cout << "Entrez le numéro de l'option de votre choix : " << endl;
+                    cout << "Entrez le numéro de l'option de votre choix : ";
                     cin >> option;
 
                     if (option == 1) {
@@ -40,11 +40,11 @@ int main() {
                         int numeroLot;
                         int colonne;
 
-                        cout << "Choisit une couleur: ";
+                        cout << "Choisit une couleur : ";
                         cin >> couleur; // todo make sure the colour is present in the lot chosen
-                        cout << "Choisit un lot: ";
-                        cin >> numeroLot; //todo allow player to select the surplus pile
-                        cout << "Choisit une colonne: ";
+                        cout << "Choisit un lot (entrez -1 si vous voulez choisir du surplus) : "; // todo make sure if the surplus is chosen that it is not empty
+                        cin >> numeroLot;
+                        cout << "Choisit une colonne : ";
                         cin >> colonne; // todo make sure the column chosen is to the left of his current position
 
                         vector<char> vitres = lots.ramasseVitre(couleur, numeroLot);
@@ -59,6 +59,8 @@ int main() {
                             }
                         }
                         courant.setPoints(pts);
+                        cout << courant << endl;
+                        cout << lots << endl;
                         turn = false;
                     } else if (courant.getPosition() != 6 and option == 2) {
                         ~courant;

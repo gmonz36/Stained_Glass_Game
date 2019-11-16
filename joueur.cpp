@@ -25,7 +25,7 @@ Joueur&  Joueur::operator~() {
 }
 
 ostream& operator<<(ostream& gauche, const Joueur& droit) {
-    gauche << "Joueur " << droit.getNom() << " " << droit.getPoints() << " points" << endl;
+    gauche << "Joueur " << droit.getNom() << " : " << droit.getPoints() << " points" << endl;
     gauche << "Vitrier à la position " << droit.getPosition() << "." << endl;
     gauche << "Plan :" << endl;
     gauche << droit.getVitrail() << endl;
