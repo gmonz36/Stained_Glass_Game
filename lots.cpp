@@ -50,6 +50,23 @@ void Lots::reset() {
     }
 }
 
+
+bool Lots::lotVide() {
+    for(int i = 0; i<5; i++){
+        if (lot[i][0]!= '.'){
+            return false;
+        }
+    }
+    return true;
+}
+
+
+bool Lots::surplusVide() {
+    return surplus.empty();
+}
+
+
+
 ostream& operator<<(ostream& gauche, const Lots& droit) {
     for(int i = 0; i<4; i++){
         for(int j = 0; j<5; j++){

@@ -16,6 +16,10 @@ public:
     vector<char> ramasseVitre(char, int);
     void reset();
     ~Lots();
+
+    bool surplusVide();
+
+    bool lotVide();
 };
 
 ostream& operator<<(ostream&, const Lots&);
