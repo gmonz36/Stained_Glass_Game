@@ -1,6 +1,5 @@
 #include <iostream>
 #include <vitrail.h>
-#include <random>
 using namespace std;
 
 
@@ -41,30 +40,54 @@ Vitrail::~Vitrail() {
 }
 
 int Vitrail::construireVitrail(std::vector<char> vitres, int colonne) {
-    return 0;
+
+    if(estComplete(colonne)){
+        throw std::invalid_argument("La colonne choisie est deja complete!");
+    }
+    else{
+        char colour = vitres[0];
+
+        for(int i = 0; i<nb_vitres; i++){
+            if(vitrail[colonne][i] == colour and !vitres.empty()){
+                vitrail[colonne][i] = 'x';
+                vitres.erase(vitres.end()-1);
+            }
+
+        }
+        return vitres.size();
+    }
+
 }
 
 bool Vitrail::estEnConstruction(int colonne) {
+    for(int i = 0; i<nb_vitres; i++){
+        if(vitrail[colonne][i]=='x'){
+            return true;
+        }
+    }
     return false;
 }
 
 bool Vitrail::estComplete(int colonne) {
-    return false;
+    for(int i = 0; i<nb_vitres; i++){
+        if(vitrail[colonne][i]!='x'){
+            return false;
+        }
+    }
+    return true;
 }
 
 ostream& operator<<(ostream& gauche, const Vitrail& droit) {
-    for(int i = 0; i<droit.getNbVitres(); i++){
-        for(int j = 0; j<droit.getNbCols(); j++){
+    for(int i = droit.getNbVitres()-1; i>=0; i--){
+        for(int j = droit.getNbCols()-1; j>=0; j--){
             gauche << droit.getVitrail()[j][i] << "    ";
         }
         gauche << endl;
     }
-
     for(int i = droit.getNbCols()-1; i>=0; i--){
         gauche << i << "    ";
     }
     gauche << endl;
-
     return gauche;
 
 }
