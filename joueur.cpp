@@ -15,7 +15,7 @@ Joueur&  Joueur::operator--() {
 
 Joueur&  Joueur::operator-=(const int n) {
     if(this->position - n < 0) throw  out_of_range("Le vitrier ne peut pas être déplacer hors des colonnes.");
-    this->position-=n;
+    this->position=n;
     return *this;
 }
 
