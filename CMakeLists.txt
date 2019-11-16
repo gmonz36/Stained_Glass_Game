@@ -10,6 +10,6 @@ add_executable(Stained_Glass_Game
         joueur.h
         lots.cpp
         lots.h
-        main.cpp
+        projetCSI2772.cpp
         vitrail.cpp
         vitrail.h)

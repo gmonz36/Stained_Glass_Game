@@ -2,74 +2,88 @@
 #include <vitrail.h>
 #include <joueur.h>
 #include <lots.h>
-//On vous demande donc de programmer ce jeu de façon à ce que 2 joueurs puissent y joueur en interagissant avec la console.
-
-//Les deux instances de la classe joueur sont créées.
-//Deux vitraux de 7 colonnes par 5 cases sont créées et associés à chacun des joueurs. Les lots sont créés
-//Votre programme alterne alors entre les 2 joueurs.
-//Le joueur choisit un lot, une couleur et une colonne. Ce qui retire les vitres du lot (méthode ramasseVitre), déplace
-// le vitrier (opérateur -=), et place les vitres sur la colonne (méthode construireVitrail). Les points rapportés par
-// cette action sont automatique comptés.
-//Alternativement, le joueur peut simplement demander de replacer son vitrier sur la colonne de gauche (opérateur ~).
-//Si un joueur tente un coup illégal, une exception est lancée et il doit proposer une autre action.
-//
 
 
 int main() {
     bool jeu = true;
-
-    //phase 1
-
-    //start game
-
     while(jeu){
         Vitrail vitrailA(7, 5);
         Vitrail vitrailB(7, 5);
-
-        Joueur joueurA("Joueur A", &vitrailA);
-        Joueur joueurB("Joueur B", &vitrailB);
-        int phase = 0;
+        Joueur joueurA("A", &vitrailA);
+        Joueur joueurB("B", &vitrailB);
+        Joueur joueurs[] = {joueurA, joueurB};
+        bool joueur = false;
+        int phase = 1;
 
         while(phase!=5) {
-            phase++;
-            Joueur& courant=joueurA; // todo check rules, who starts each phase? what is the deciding factor?
-            Lots lots; // todo check rules, does each player have a set of lots, or is it 1 per phase?
+            Joueur& courant=joueurs[joueur]; // todo check rules, who starts each phase? what is the deciding factor?
+            Lots lots;
 
+            while(!lots.lotVide() or !lots.surplusVide()){
+                cout << courant << endl;
+                cout << lots << endl;
+                bool turn = true;
+                while(turn) {
+                    int option;
+                    cout << "Vos options sont : " << endl;
+                    cout << "(1) - Prendre des vitres d’une couleur dans l’un des lots ou dans le surplus, "
+                            "puis les placer dans la colonne de votre choix a la gauche de votre position." << endl;
+                    if (courant.getPosition() != 6) {
+                        cout << "(2) - Déplacer le vitrier à la posiiton 6 et terminer votre tour." << endl;
+                    }
+                    cout << "Entrez le numéro de l'option de votre choix : " << endl;
+                    cin >> option;
 
-            while(!lots.lotVide() || !lots.surplusVide()){
-                if (courant.getNom() == "Joueur A") {
+                    if (option == 1) {
 
-                    //turn
+                        char couleur;
+                        int numeroLot;
+                        int colonne;
 
+                        cout << "Choisit une couleur: ";
+                        cin >> couleur; // todo make sure the colour is present in the lot chosen
+                        cout << "Choisit un lot: ";
+                        cin >> numeroLot; //todo allow player to select the surplus pile
+                        cout << "Choisit une colonne: ";
+                        cin >> colonne; // todo make sure the column chosen is to the left of his current position
 
-                    courant = joueurB;
-                } else {
-
-
-                    //turn
-
-                    courant = joueurA;
+                        vector<char> vitres = lots.ramasseVitre(couleur, numeroLot);
+                        courant -= colonne;
+                        int pts = vitrailA.construireVitrail(vitres, colonne);
+                        if (vitrailA.estComplete(colonne)) {
+                            pts += 3;
+                            for (int i = colonne - 1; i >= 0; i--) {
+                                if (vitrailA.estEnConstruction(i)) {
+                                    pts += 1;
+                                }
+                            }
+                        }
+                        courant.setPoints(pts);
+                        turn = false;
+                    } else if (courant.getPosition() != 6 and option == 2) {
+                        ~courant;
+                        turn = false;
+                    }
                 }
+                joueur=!joueur;
+                courant = joueurs[joueur];
 
             }
-
+            phase++;
         }
         if (joueurA.getPoints() > joueurB.getPoints()){
-            //Player A wins!
+            cout << "Joueur " << joueurA.getNom() << " est le gagnant!" << endl;
         }
         else if (joueurB.getPoints() > joueurA.getPoints()){
-            //Player B wins!
+            cout << "Joueur " << joueurB.getNom() << " est le gagnant!" << endl;
         }
         else{
-            //its a tie!
+            cout << "C'est une partie égale!" << endl;
+
         }
         jeu = false;
 
     }
-
-
-
-
 
     return 0;
 };

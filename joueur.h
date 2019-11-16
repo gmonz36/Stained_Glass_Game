@@ -16,8 +16,10 @@ public:
     Joueur(string, Vitrail*);
     string   getNom()      const;
     int      getPoints()   const;
+    void    setPoints(int);
     int      getPosition() const;
     Vitrail& getVitrail()  const;
+
     Joueur&  operator--();
     Joueur&  operator-=(const int);
     Joueur&  operator~();

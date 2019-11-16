@@ -25,7 +25,6 @@ Vitrail::Vitrail(int nb_cols, int nb_vitres): nb_cols(nb_cols), nb_vitres(nb_vit
     }
 
 
-
 }
 
 int Vitrail::getNbCols() const {return nb_cols;}
