@@ -18,8 +18,8 @@ public:
     ~Lots();
 
     bool surplusVide();
-
     bool lotVide();
+    void ajouteAuSurplus(int, char);
 };
 
 ostream& operator<<(ostream&, const Lots&);

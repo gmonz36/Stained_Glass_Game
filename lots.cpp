@@ -29,15 +29,24 @@ vector<char> Lots::ramasseVitre(char couleur, int numeroLot) {
                 surplus.push_back(lot[numeroLot][i]);
                 lot[numeroLot][i] = '.';
             }
+
         }
     } else if(numeroLot<0) {
+        if (surplus.empty()){
+            throw invalid_argument("On ne peut pas sélectionner le surplus car il est vide.");
+
+        }
         vector<char> tmp;
         for(char vitre: surplus) {
             if(couleur==vitre) vitres.push_back(vitre);
             else tmp.push_back(vitre);
         }
         surplus = tmp;
-    } else throw out_of_range("Le numéro de lot sélectionné ne peut pas être supérieure à 5.");
+
+    }
+    else{
+        throw out_of_range("Le numéro de lot sélectionné ne peut pas être supérieure à 5.");
+    }
     return vitres;
 }
 
@@ -94,4 +103,10 @@ Lots::~Lots() {
         delete[] lot[i];
     }
     delete[] lot;
+}
+
+void Lots::ajouteAuSurplus(int pts_perdu, char couleur) {
+    for (int i = 0; i<pts_perdu; i++){
+        surplus.push_back(couleur);
+    }
 }
