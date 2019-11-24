@@ -18,9 +18,16 @@ Lots::Lots() {
 }
 
 vector<char> Lots::ramasseVitre(char couleur, int numeroLot) {
+    if ( (couleur!='O') && (couleur!='J') && (couleur!='R') && (couleur!='B') && (couleur!='G') ){
+        throw invalid_argument("La couleur sélectionnée n'est pas valide.");
+    }
     vector<char> vitres;
     if(numeroLot>=0 and numeroLot<5) {
         if(lot[numeroLot][0]=='.') throw invalid_argument("On ne peut pas sélectionner un lot vide.");
+        for(int i=0;i<4;i++) {
+            if(couleur == lot[numeroLot][i]) break;
+            if(i=3) throw invalid_argument("On ne peut pas sélectionner une couleur qui n'est pas dans le lot.");
+        }
         for(int i=0;i<4;i++) {
             if(couleur == lot[numeroLot][i]) {
                 vitres.push_back(lot[numeroLot][i]);
@@ -34,7 +41,10 @@ vector<char> Lots::ramasseVitre(char couleur, int numeroLot) {
     } else if(numeroLot<0) {
         if (surplus.empty()){
             throw invalid_argument("On ne peut pas sélectionner le surplus car il est vide.");
-
+        }
+        for(int i=0;i<surplus.size();i++) {
+            if(couleur == lot[numeroLot][i]) break;
+            if(i=surplus.size()-1) throw invalid_argument("On ne peut pas sélectionner une couleur qui n'est pas dans le surplus.");
         }
         vector<char> tmp;
         for(char vitre: surplus) {

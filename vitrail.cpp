@@ -83,6 +83,13 @@ bool Vitrail::estComplete(int colonne) const {
     return true;
 }
 
+bool Vitrail::estComplete() const {
+    for(int i = 0; i<nb_cols; i++){
+        if(estComplete(i) == false) return false;
+    }
+    return true;
+}
+
 ostream& operator<<(ostream& gauche, const Vitrail& droit) {
     for(int i = 0; i<droit.getNbVitres(); i++){
         for(int j = droit.getNbCols()-1; j>=0; j--){
