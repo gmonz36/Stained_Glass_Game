@@ -16,6 +16,7 @@ class Vitrail {
         Vitrail(int, int);
         ~Vitrail();
         int construireVitrail(std::vector<char>, int);
+        bool doitRepositionner(int) const;
         bool estComplete(int) const;
         bool estComplete() const;
         bool estEnConstruction(int);

@@ -16,31 +16,40 @@ int main() {
 
     while(phase<6) {
         cout << "Ronde " << phase << endl;
-        Joueur* courant=&joueurs[joueur];
+        Joueur* courant = &joueurs[joueur];
 
         while(!lots.lotVide() or !lots.surplusVide()){
             cout << *courant << endl;
-            cout << lots << endl;
-
-            bool optionValide = false;
+            cout << lots     << endl;
             int option;
-            while(!optionValide) { // Le jeu redemande au joueur de choisir une option jusqu'à ce quelle soit valide
-                string input_option;
-                cout << "Vos options sont : " << endl;
-                cout << "(1) - Prendre des vitres d’une couleur dans l’un des lots ou dans le surplus, "
+
+            if((courant->getVitrail()).doitRepositionner(courant->getPosition())) {
+                option = 2;
+                cout << "Votre vitrier est replacé à la position 6 pour que vous puissiez construire à nouveau." << endl;
+            }
+            else if (courant->getPosition() == 6) {
+                option = 1;
+                cout << "Veuillez prendre des vitres d’une couleur dans l’un des lots ou dans le surplus, "
                         "puis les placer dans la colonne de votre choix a la gauche de votre position." << endl;
-                if (courant->getPosition() != 6) {
-                    cout << "(2) - Déplacer le vitrier à la posiiton 6 et terminer votre tour." << endl;
-                }
-                cout << "Entrez le numéro de l'option de votre choix : ";
-                getline(cin, input_option); // getline est utilisé pour éviter des erreurs s'il y a plusieurs input ou un input vide
-                try {
-                    if( input_option.size()>1) throw -1; //l'option ne devrait être qu'un seul chiffre donc un seul charactère
-                    option = input_option[0] - '0'; //transforme le input en un int
-                    if( (option==1) || (option==2 && courant->getPosition() != 6)) optionValide = true;
-                    else throw -1; // Toute autre option que 1 ou 2 est invalide et est considéré comme une exception
-                } catch(...) {
-                    cout << "Tu n'as pas choisi une option valide." << endl;
+            }
+            else {
+                bool optionValide = false;
+                while(!optionValide) { // Le jeu redemande au joueur de choisir une option jusqu'à ce quelle soit valide
+                    string input_option;
+                    cout << "Vos options sont : " << endl;
+                    cout << "(1) - Prendre des vitres d’une couleur dans l’un des lots ou dans le surplus, "
+                            "puis les placer dans la colonne de votre choix a la gauche de votre position." << endl;
+                    cout << "(2) - Déplacer le vitrier à la position 6 et terminer votre tour." << endl;
+                    cout << "Entrez le numéro de l'option de votre choix : ";
+                    getline(cin, input_option); // getline est utilisé pour éviter des erreurs s'il y a plusieurs input ou un input vide
+                    try {
+                        if( input_option.size()>1) throw -1; //l'option ne devrait être qu'un seul chiffre donc un seul charactère
+                        option = input_option[0] - '0'; //transforme le input en un int
+                        if( (option==1) || (option==2)) optionValide = true;
+                        else throw -1; // Toute autre option que 1 ou 2 est invalide et est considéré comme une exception
+                    } catch(...) {
+                        cout << "Tu n'as pas choisi une option valide." << endl;
+                    }
                 }
             }
 
@@ -98,7 +107,6 @@ int main() {
                                     pts += 1;
                                 }
                             }
-                            if(courant->getPosition()==0) ~(*courant); //Si le vitrail 0 est rempli la joueur est repositionné à gauche
                         }
                         courant->setPoints(pts-pts_perdu);
                         cout << *courant << endl;
@@ -108,8 +116,6 @@ int main() {
                         cout << e.what() << endl;
                     } catch (const out_of_range &e) {
                         cout << e.what() << endl;
-                    } catch (...) {
-                        cout << "Ton action est invalide." << endl;
                     }
                 } while(true);
 
@@ -121,7 +127,7 @@ int main() {
                 phase = 6;
                 break;
             }
-            joueur=!joueur;
+            joueur  = !joueur;
             courant = &joueurs[joueur];
         }
         lots.reset();

@@ -53,13 +53,6 @@ int Vitrail::construireVitrail(std::vector<char> vitres, int colonne) {
             }
 
         }
-        for(int i = 0; i<nb_vitres; i++){
-            if(vitrail[colonne][i] == colour and !vitres.empty()){
-                vitrail[colonne][i] = 'x';
-                vitres.erase(vitres.end()-1);
-            }
-
-        }
         return vitres.size();
     }
 
@@ -85,6 +78,13 @@ bool Vitrail::estComplete(int colonne) const {
 
 bool Vitrail::estComplete() const {
     for(int i = 0; i<nb_cols; i++){
+        if(estComplete(i) == false) return false;
+    }
+    return true;
+}
+
+bool Vitrail::doitRepositionner(int colonne) const {
+    for(int i = 0; i<=colonne; i++){
         if(estComplete(i) == false) return false;
     }
     return true;

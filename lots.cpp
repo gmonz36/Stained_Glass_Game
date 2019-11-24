@@ -1,4 +1,5 @@
 #include <iostream>
+#include <algorithm>
 #include "lots.h"
 
 using namespace std;
@@ -24,10 +25,9 @@ vector<char> Lots::ramasseVitre(char couleur, int numeroLot) {
     vector<char> vitres;
     if(numeroLot>=0 and numeroLot<5) {
         if(lot[numeroLot][0]=='.') throw invalid_argument("On ne peut pas sélectionner un lot vide.");
-        for(int i=0;i<4;i++) {
-            if(couleur == lot[numeroLot][i]) break;
-            if(i=3) throw invalid_argument("On ne peut pas sélectionner une couleur qui n'est pas dans le lot.");
-        }
+        bool couleur_valide = false;
+        for(int i=0;i<4;i++) if(couleur == lot[numeroLot][i]) couleur_valide = true;
+        if(!couleur_valide) throw invalid_argument("On ne peut pas sélectionner une couleur qui n'est pas dans le lot.");
         for(int i=0;i<4;i++) {
             if(couleur == lot[numeroLot][i]) {
                 vitres.push_back(lot[numeroLot][i]);
@@ -42,9 +42,8 @@ vector<char> Lots::ramasseVitre(char couleur, int numeroLot) {
         if (surplus.empty()){
             throw invalid_argument("On ne peut pas sélectionner le surplus car il est vide.");
         }
-        for(int i=0;i<surplus.size();i++) {
-            if(couleur == lot[numeroLot][i]) break;
-            if(i=surplus.size()-1) throw invalid_argument("On ne peut pas sélectionner une couleur qui n'est pas dans le surplus.");
+        if(find(surplus.begin(), surplus.end(), couleur) == surplus.end()) {
+            throw invalid_argument("On ne peut pas sélectionner une couleur qui n'est pas dans le surplus.");
         }
         vector<char> tmp;
         for(char vitre: surplus) {
