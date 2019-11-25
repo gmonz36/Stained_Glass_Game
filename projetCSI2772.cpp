@@ -131,12 +131,12 @@ int main() {
             courant = &joueurs[joueur];
         }
         lots.reset();
-        if(++phase > 5) { cout << "Les cinq phases sont terminées! Fin de la partie." << endl;}
+        if(++phase > 5) { cout << "Fin de la partie!" << endl;}
     }
-    if (joueurA.getPoints() > joueurB.getPoints()){
-        cout << "Joueur " << joueurA.getNom() << " est le gagnant!" << endl;
-    } else if (joueurB.getPoints() > joueurA.getPoints()){
-        cout << "Joueur " << joueurB.getNom() << " est le gagnant!" << endl;
+    if (joueurs[0].getPoints() > joueurs[1].getPoints()){
+        cout << "Joueur " << joueurs[0].getNom() << " est le gagnant!" << endl;
+    } else if (joueurs[1].getPoints() > joueurs[0].getPoints()){
+        cout << "Joueur " << joueurs[1].getNom() << " est le gagnant!" << endl;
     } else{
         cout << "C'est une partie égale!" << endl;
     }
