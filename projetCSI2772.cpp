@@ -123,7 +123,7 @@ int main() {
                 ~(*courant);
             }
             if(courant->getVitrail().estComplete()) {
-                cout << "Ton vitrail est complété! Fin de la partie." << endl;
+                cout << "Ton vitrail est complété!" << endl;
                 phase = 6;
                 break;
             }
