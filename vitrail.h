@@ -1,3 +1,6 @@
+//
+// Created by Geneviève Lanzer 8580225 and Guillaume Monzerol 8930730.
+//
 #ifndef VITRAIL_H
 #define VITRAIL_H
 

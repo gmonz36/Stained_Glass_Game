@@ -1,3 +1,6 @@
+//
+// Created by Geneviève Lanzer 8580225 and Guillaume Monzerol 8930730.
+//
 #include <iostream>
 #include <vitrail.h>
 using namespace std;
